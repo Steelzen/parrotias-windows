@@ -1,5 +1,5 @@
 {
-  "name": "my-electron-app",
+  "name": "parrotias-windows",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
@@ -11,5 +11,8 @@
   "license": "MIT",
   "devDependencies": {
     "electron": "^24.3.0"
+  },
+  "dependencies": {
+    "electron-progressbar": "^2.1.0"
   }
 }
