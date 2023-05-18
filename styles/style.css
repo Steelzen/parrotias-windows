@@ -1,0 +1,21 @@
+#loading-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background-color: #f0f0f0;
+}
+
+#progress {
+  width: 0%;
+  height: 100%;
+  background-color: #007bff;
+  transition: width 0.2s ease-in-out;
+}
+
+#website-iframe {
+  width: 100%;
+  height: 100vh; /* Adjust the height based on your design */
+  border: none; /* Remove the border around the iframe */
+}
