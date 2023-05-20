@@ -1,18 +1,26 @@
-const { app, BrowserWindow, Menu} = require("electron");
+const { app, BrowserWindow} = require("electron");
 const ProgressBar = require("electron-progressbar");
+const path = require('path');
 const { setContextMenu, disableMenuBarVisbility, createMenu } = require("./scripts/menu.js");
+const { handleElectronAPI } = require("./scripts/electron-api.js");
 
 const createWindow = () => {
-  const win = new BrowserWindow({
+  const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    webPreferences: {
+      preload: path.join(__dirname ,'preload.js'),
+    }
   });
 
+  handleElectronAPI();
+
   setContextMenu();
-  disableMenuBarVisbility(win);
+  disableMenuBarVisbility(mainWindow);
   createMenu();
 
-  win.loadFile("index.html");
+  mainWindow.loadFile("index.html");
+
 };
 
 app.whenReady().then(() => {

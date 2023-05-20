@@ -2,18 +2,18 @@ const {Menu} = require("electron");
 const contextMenu = require('electron-context-menu'); 
 
 
-function setContextMenu(){
+const setContextMenu = () => {
     // Display SaveImageAs function when right click to any image item
     contextMenu({
         showSaveImageAs: true
     })
 }
 
-function disableMenuBarVisbility(win){
-    win.setMenuBarVisibility(false);
+const disableMenuBarVisbility = (mainWindow) =>{
+    mainWindow.setMenuBarVisibility(false);
 }
   
-function createMenu(){
+const createMenu = () =>{
     const isMac = process.platform === 'darwin'
 
     const template = [
