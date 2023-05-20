@@ -3,6 +3,7 @@ const ProgressBar = require("electron-progressbar");
 const path = require('path');
 const { setContextMenu, disableMenuBarVisbility, createMenu } = require("./scripts/menu.js");
 const { handleElectronAPI } = require("./scripts/electron-api.js");
+// require('update-electron-app')()
 
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
@@ -36,3 +37,5 @@ app.whenReady().then(() => {
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });
+
+app.setAppUserModelId(process.execPath)
