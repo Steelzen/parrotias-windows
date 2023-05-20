@@ -4,19 +4,20 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link rel="stylesheet" type="text/css" href="./styles/style.css" />
     <title>Parrotias</title>
   </head>
   <body>
-    <div id="navigation-bar">
-      <button id="go-back">Go Back</button>
-      <button id="go-forward">Go Forward</button>
-      <button id="refresh">Refresh</button>
-    </div>
     <div id="loading-bar">
       <div id="progress"></div>
+      <div id="navigation-bar">
+        <button id="go-back">&lt;</button>
+        <button id="go-forward">&gt;</button>
+        <button id="refresh">&#x21bb;</button>
+      </div>
+      <iframe id="website-iframe" src="https://parrotias.com"></iframe>
     </div>
-    <iframe id="website-iframe" src="https://parrotias.com"></iframe>
     <script type="text/javascript" src="./scripts/progress-bar.js"></script>
     <script type="text/javascript" src="./scripts/buttons.js"></script>
   </body>
