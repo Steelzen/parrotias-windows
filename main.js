@@ -1,7 +1,10 @@
-const { app, BrowserWindow} = require("electron");
-const ProgressBar = require("electron-progressbar");
-const path = require('path');
-const { setContextMenu, disableMenuBarVisbility, createMenu } = require("./scripts/menu.js");
+const { app, BrowserWindow } = require("electron");
+const path = require("path");
+const {
+  setContextMenu,
+  disableMenuBarVisbility,
+  createMenu,
+} = require("./scripts/menu.js");
 const { handleElectronAPI } = require("./scripts/electron-api.js");
 // require('update-electron-app')()
 
@@ -10,8 +13,8 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname ,'preload.js'),
-    }
+      preload: path.join(__dirname, "preload.js"),
+    },
   });
 
   handleElectronAPI();
@@ -22,6 +25,14 @@ const createWindow = () => {
 
   mainWindow.loadFile("index.html");
 
+  // for sending a message to renderer process
+  mainWindow.webContents.on("did-start-loading", () => {
+    mainWindow.webContents.send("did-start-loading");
+  });
+
+  mainWindow.webContents.on("did-stop-loading", () => {
+    mainWindow.webContents.send("did-stop-loading");
+  });
 };
 
 app.whenReady().then(() => {
@@ -38,4 +49,4 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });
 
-app.setAppUserModelId(process.execPath)
+app.setAppUserModelId(process.execPath);

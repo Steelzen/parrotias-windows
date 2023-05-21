@@ -8,13 +8,14 @@
 }
 
 #progress {
-  width: 0%;
+  width: 10%;
   height: 100%;
   background-color: #007bff;
   transition: width 0.2s ease-in-out;
 }
 
 #website-iframe {
+  position: fixed;
   width: 100%;
   height: 100vh; /* Adjust the height based on your design */
   border: none; /* Remove the border around the iframe */
