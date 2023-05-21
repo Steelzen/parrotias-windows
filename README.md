@@ -2,8 +2,12 @@
 
 ## In Progress
 
-### Update: 18th May, 2023
+### Update: 22nd May, 2023
 
-<img width="772" alt="Loadingbar1" src="https://github.com/Steelzen/parrotias-windows/assets/94742043/ee293a23-9cbc-4ca2-8430-20bc5509e993">
+* Add functionalities
+* Improve the loading bar to react completely to web site.
 
-<img width="1618" alt="Loadingbar2" src="https://github.com/Steelzen/parrotias-windows/assets/94742043/33f97ef7-26f1-4b9a-b9e3-0ca71d1a3a9e">
+Still in Progress
+
+
+<img width="1080" alt="Screenshot 2023-05-21 at 16 51 26" src="https://github.com/Steelzen/parrotias-windows/assets/94742043/1737f2f0-7a86-4231-8a32-e30afef7e33d">
