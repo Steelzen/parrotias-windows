@@ -10,7 +10,7 @@ const rendererToMainAPI = () => {
 const mainToRendererAPI = (webContents) => {
   webContents.on("did-start-loading", () => { webContents.send("did-start-loading") });
   webContents.on("did-stop-loading", () => { webContents.send("did-stop-loading") });
-  webContents.once("did-stop-loading", () => { webContents.send("did-stop-loading-once")});
+  webContents.on("did-finish-load", () => { webContents.send("did-finish-load") });
 }
 
 const handleGoBack = (event) => {

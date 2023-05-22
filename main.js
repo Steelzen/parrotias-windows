@@ -11,6 +11,7 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
+      nodeIntegration: true,
       preload: path.join(__dirname, "preload.js"),
     },
   });
@@ -19,15 +20,23 @@ const createWindow = () => {
   handleMenu(mainWindow);
 
   mainWindow.loadFile("index.html");
+  // mainWindow.loadURL("https://parrotias.com");
+  // mainWindow.webContents.on('did-finish-load', () => {
+  //   mainWindow.webContents.executeJavaScript(`
+  //     // Execute JavaScript code in the loaded web page
+  //     const newElement = document.createElement('div');
+  //     newElement.textContent = 'This is a new element added dynamically.';
+  //     document.body.appendChild(newElement);
+  //   `);
+  // });
 
   // for sending a message to renderer process
-  // mainWindow.webContents.on("did-start-loading", (event) =>{
-  //   mainWindow.webContents.send("did-start-loading")
-  // })
-  // mainWindow.webContents.on("did-stop-loading", (event) =>{
-  //   mainWindow.webContents.send("did-stop-loading")
-  // })
   mainToRendererAPI(mainWindow.webContents);
+
+  // mainWindow.webContents.on('did-finish-load', () => {
+  //   // Trigger the print action
+  //   mainWindow.webContents.print();
+  // });
 };
 
 app

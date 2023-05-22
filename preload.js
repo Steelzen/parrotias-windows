@@ -8,5 +8,5 @@ contextBridge.exposeInMainWorld("electronAPI", {
   handleStartLoading: (callback) =>
     ipcRenderer.on("did-start-loading", callback),
   handleStopLoading: (callback) => ipcRenderer.on("did-stop-loading", callback),
-  handleStopLoadingOnce: (callback) => ipcRenderer.once("did-stop-loading-once", callback),
+  handleFinishLoad: (callback) => ipcRenderer.on("did-finish-load", callback),
 });

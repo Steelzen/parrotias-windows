@@ -1,10 +1,10 @@
-const {Menu} = require("electron");
+const { Menu, MenuItem } = require("electron");
 const contextMenu = require('electron-context-menu'); 
 
 const handleMenu = (mainWindow) => {
     setContextMenu();
     disableMenuBarVisbility(mainWindow);
-    createMenu();
+    createMenu(mainWindow);
 }
 
 const setContextMenu = () => {
@@ -18,8 +18,15 @@ const disableMenuBarVisbility = (mainWindow) =>{
     mainWindow.setMenuBarVisibility(false);
 }
   
-const createMenu = () =>{
+const createMenu = (mainWindow) =>{
     const isMac = process.platform === 'darwin'
+    const printMenuItem = new MenuItem({
+        label: 'Print',
+        accelerator: 'CmdOrCtrl+P',
+        click: () => {
+            mainWindow.webContents.print();
+        },
+    });
 
     const template = [
         // { role: 'editMenu' }
@@ -72,6 +79,7 @@ const createMenu = () =>{
         submenu: [
             { role: 'minimize' },
             { role: 'zoom' },
+            printMenuItem,
             ...(isMac ? [
             { type: 'separator' },
             { role: 'front' },
