@@ -10,6 +10,7 @@ const rendererToMainAPI = () => {
 const mainToRendererAPI = (webContents) => {
   webContents.on("did-start-loading", () => { webContents.send("did-start-loading") });
   webContents.on("did-stop-loading", () => { webContents.send("did-stop-loading") });
+  webContents.once("did-stop-loading", () => { webContents.send("did-stop-loading-once")});
 }
 
 const handleGoBack = (event) => {
@@ -35,12 +36,7 @@ const handleOffline = (event) => {
   const webContents = event.sender;
   const mainWindow = BrowserWindow.fromWebContents(webContents);
   dialog.showMessageBox(mainWindow, {
-    type: 'question',
-    buttons: ['Leave', 'Stay'],
-    title: 'Do you want to leave this site?',
-    message: 'Changes you made may not be saved.',
-    defaultId: 0,
-    cancelId: 1
+    message: 'Your connection is Offline',
   })
 }
 
