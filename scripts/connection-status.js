@@ -1,8 +1,7 @@
-const updateOnlineStatus = () => {
-    document.getElementById('status').innerHTML = navigator.onLine ? 'online' : 'offline'
+const sendOffline = () => {
+    window.electronAPI.offline();
 }
-  
-window.addEventListener('online', updateOnlineStatus)
-window.addEventListener('offline', updateOnlineStatus)
 
-updateOnlineStatus()
+window.electronAPI.handleStopLoadingOnce((event) => {
+    window.addEventListener('offline', sendOffline)
+})

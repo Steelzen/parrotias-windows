@@ -2,16 +2,16 @@ const goBackButton = document.getElementById("go-back");
 const goFowardButton = document.getElementById("go-forward");
 const refreshButton = document.getElementById("refresh");
 
-goBackButton.addEventListener("click", () => {
+goBackButton.addEventListener("click", sendGoBack)
+goFowardButton.addEventListener("click", sendGoForward)
+refreshButton.addEventListener("click", sendRefresh)
+
+const sendGoBack = () => {
     window.electronAPI.goBack();
-})
-
-goFowardButton.addEventListener("click", () =>{
+}
+const sendGoForward = () => {
     window.electronAPI.goForward();
-})
-
-refreshButton.addEventListener("click", () =>{
+}
+const sendRefresh = () => {
     window.electronAPI.refresh();
-})
-
-
+}
