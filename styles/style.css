@@ -1,3 +1,22 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+#Content-wrapper {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
 #loading-bar {
   position: fixed;
   top: 0;
@@ -8,14 +27,40 @@
 }
 
 #progress {
-  width: 0%;
+  width: 10%;
   height: 100%;
   background-color: #007bff;
   transition: width 0.2s ease-in-out;
 }
 
+#navigation-bar {
+  display: flex;
+  flex-direction: row;
+  height: 23px;
+  padding: 5px;
+}
+
+#status-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+#buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+#buttons > button {
+  margin: 0 5px;
+}
+
+#website-wrapper {
+  flex: 1;
+  overflow: auto;
+}
+
 #website-iframe {
   width: 100%;
-  height: 100vh; /* Adjust the height based on your design */
-  border: none; /* Remove the border around the iframe */
+  height: 100%;
+  border: none;
 }
