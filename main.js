@@ -1,11 +1,9 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const {
-  setContextMenu,
-  disableMenuBarVisbility,
-  createMenu,
+  handleMenu
 } = require("./scripts/menu.js");
-const { handleElectronAPI } = require("./scripts/electron-api.js");
+const { rendererToMainAPI, mainToRendererAPI } = require("./scripts/electron-api.js");
 // require('update-electron-app')()
 
 const createWindow = () => {
@@ -17,22 +15,19 @@ const createWindow = () => {
     },
   });
 
-  handleElectronAPI();
-
-  setContextMenu();
-  disableMenuBarVisbility(mainWindow);
-  createMenu();
+  rendererToMainAPI();
+  handleMenu(mainWindow);
 
   mainWindow.loadFile("index.html");
 
   // for sending a message to renderer process
-  mainWindow.webContents.on("did-start-loading", () => {
-    mainWindow.webContents.send("did-start-loading");
-  });
-
-  mainWindow.webContents.on("did-stop-loading", () => {
-    mainWindow.webContents.send("did-stop-loading");
-  });
+  // mainWindow.webContents.on("did-start-loading", (event) =>{
+  //   mainWindow.webContents.send("did-start-loading")
+  // })
+  // mainWindow.webContents.on("did-stop-loading", (event) =>{
+  //   mainWindow.webContents.send("did-stop-loading")
+  // })
+  mainToRendererAPI(mainWindow.webContents);
 };
 
 app

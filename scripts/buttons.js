@@ -14,4 +14,7 @@ refreshButton.addEventListener("click", () =>{
     window.electronAPI.refresh();
 })
 
+// refreshButton.addEventListener("click", ()=>{
+//     window.electronAPI.refresh("refresh")
+// })
 

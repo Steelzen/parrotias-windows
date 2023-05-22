@@ -1,6 +1,11 @@
 const {Menu} = require("electron");
 const contextMenu = require('electron-context-menu'); 
 
+const handleMenu = (mainWindow) => {
+    setContextMenu();
+    disableMenuBarVisbility(mainWindow);
+    createMenu();
+}
 
 const setContextMenu = () => {
     // Display SaveImageAs function when right click to any image item
@@ -50,7 +55,7 @@ const createMenu = () =>{
         {
         label: 'View',
         submenu: [
-            { role: 'reload' },
+            { role: 'reload', accelerator: 'F5' },
             { role: 'forceReload' },
             { role: 'toggleDevTools' },
             { type: 'separator' },
@@ -84,7 +89,5 @@ const createMenu = () =>{
 }
 
 module.exports = {
-    setContextMenu,
-    disableMenuBarVisbility,
-    createMenu
+    handleMenu,
 }
