@@ -24,8 +24,8 @@ module.exports = {
       name: '@electron-forge/publisher-github',
       config: {
         repository: {
-          owner: 'github-user-name',
-          name: 'github-repo-name',
+          owner: 'Steelzen',
+          name: 'parrotias-windows',
         },
         prerelease: false,
         draft: true,
