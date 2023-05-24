@@ -1,8 +1,10 @@
 const updateOnlineStatus = () => {
-    document.getElementById('status').innerHTML = navigator.onLine ? 'online' : 'offline'
-}
-  
-window.addEventListener('online', updateOnlineStatus)
-window.addEventListener('offline', updateOnlineStatus)
+  document.getElementById("status").innerHTML = navigator.onLine
+    ? '<img src="./resources/online.png" alt="Online" />'
+    : '<img src="./resources/offline.png" alt="Offline" />';
+};
 
-updateOnlineStatus()
+window.addEventListener("online", updateOnlineStatus);
+window.addEventListener("offline", updateOnlineStatus);
+
+updateOnlineStatus();

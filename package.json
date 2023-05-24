@@ -3,6 +3,23 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
+  "build": {
+    "appId": "com.parrotias",
+    "icon": "resources/icon.ico",
+    "directories": {
+      "buildResources": "resources",
+      "output": "dist"
+    },
+    "publish": null,
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
   "scripts": {
     "start": "electron-forge start",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -19,7 +36,8 @@
     "@electron-forge/maker-squirrel": "^6.1.1",
     "@electron-forge/maker-zip": "^6.1.1",
     "@electron-forge/publisher-github": "^6.1.1",
-    "electron": "^24.3.0"
+    "electron": "^24.3.0",
+    "electron-builder": "^23.6.0"
   },
   "dependencies": {
     "electron-context-menu": "^3.6.1",
