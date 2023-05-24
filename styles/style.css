@@ -105,6 +105,11 @@ body {
   opacity: 1;
 }
 
+#status img {
+  width: 20px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
 #website-wrapper {
   flex: 1;
   overflow: auto;

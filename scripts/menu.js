@@ -34,8 +34,6 @@ const setContextMenu = () => {
         );
 
         menu.popup();
-
-        console.log(webContents.getType());
       },
       false
     );
