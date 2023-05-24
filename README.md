@@ -8,7 +8,7 @@
 - Solved cookies issue
 - Have done styling buttons
 - Alternate status message to images
-- Ctr + p print functions added
+- Ctr + p print function added
 
 Still in Progress
 
