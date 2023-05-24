@@ -1,17 +1,22 @@
-const goBackButton = document.getElementById("go-back");
-const goFowardButton = document.getElementById("go-forward");
-const refreshButton = document.getElementById("refresh");
+document.addEventListener("DOMContentLoaded", () => {
+  const webview = document.getElementById("website-view");
+  const goBackButton = document.getElementById("go-back");
+  const goForwardButton = document.getElementById("go-forward");
+  const refreshButton = document.getElementById("refresh");
 
-goBackButton.addEventListener("click", () => {
-    window.electronAPI.goBack();
-})
+  goBackButton.addEventListener("click", () => {
+    if (webview.canGoBack()) {
+      webview.goBack();
+    }
+  });
 
-goFowardButton.addEventListener("click", () =>{
-    window.electronAPI.goForward();
-})
+  goForwardButton.addEventListener("click", () => {
+    if (webview.canGoForward()) {
+      webview.goForward();
+    }
+  });
 
-refreshButton.addEventListener("click", () =>{
-    window.electronAPI.refresh();
-})
-
-
+  refreshButton.addEventListener("click", () => {
+    webview.reload();
+  });
+});

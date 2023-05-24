@@ -15,16 +15,25 @@
       </div>
       <div id="navigation-bar">
         <div id="buttons">
-          <button id="go-back">&lt;</button>
-          <button id="go-forward">&gt;</button>
-          <button id="refresh">&#x21bb;</button>
+          <button id="go-back" class="toolbar-button" data-icon="&lt;"></button>
+          <button
+            id="go-forward"
+            class="toolbar-button"
+            data-icon="&gt;"
+          ></button>
+          <button id="refresh" class="toolbar-button">&#x21bb;</button>
         </div>
         <div id="status-wrapper">
           <p>Connection status: <strong id="status"></strong></p>
         </div>
       </div>
       <div id="website-wrapper">
-        <iframe id="website-iframe" src="https://parrotias.com"></iframe>
+        <webview
+          id="website-view"
+          src="https://parrotias.com"
+          partition="persist:webview"
+          webpreferences="sandbox=allow-scripts"
+        ></webview>
       </div>
     </div>
     <script type="text/javascript" src="./scripts/progress-bar.js"></script>
