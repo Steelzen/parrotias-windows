@@ -1,6 +1,6 @@
 {
   "name": "parrotias-windows",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "",
   "main": "main.js",
   "build": {
@@ -18,7 +18,15 @@
       "oneClick": false,
       "perMachine": true,
       "allowToChangeInstallationDirectory": true
-    }
+    },
+    "files": [
+      "main.js",
+      "resources/**/*",
+      "scripts/**/*",
+      "styles/**/*",
+      "index.html",
+      "forge.config.js"
+    ]
   },
   "scripts": {
     "start": "electron-forge start",
