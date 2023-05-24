@@ -1,4 +1,4 @@
-const { app, BrowserWindow, session } = require("electron");
+const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const { handleMenu } = require("./scripts/menu.js");
 // require('update-electron-app')()

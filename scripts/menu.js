@@ -1,5 +1,4 @@
-const { Menu, MenuItem } = require("electron");
-const contextMenu = require("electron-context-menu");
+const { app, Menu, MenuItem, shell, session } = require("electron");
 
 const handleMenu = (mainWindow) => {
   setContextMenu();
@@ -8,9 +7,38 @@ const handleMenu = (mainWindow) => {
 };
 
 const setContextMenu = () => {
-  // Display SaveImageAs function when right click to any image item
-  contextMenu({
-    showSaveImageAs: true,
+  app.on("web-contents-created", (event, webContents) => {
+    webContents.on(
+      "context-menu",
+      async (event, params) => {
+        event.preventDefault();
+
+        const menu = new Menu();
+
+        menu.append(
+          new MenuItem({
+            label: "Save Image As",
+            click: async () => {
+              try {
+                const { filePath } = await session.defaultSession.downloadURL(
+                  params.srcURL
+                );
+                if (filePath) {
+                  shell.showItemInFolder(filePath);
+                }
+              } catch (error) {
+                console.error("Error downloading file:", error);
+              }
+            },
+          })
+        );
+
+        menu.popup();
+
+        console.log(webContents.getType());
+      },
+      false
+    );
   });
 };
 

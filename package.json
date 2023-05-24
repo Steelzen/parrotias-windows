@@ -2,7 +2,8 @@
   "name": "parrotias-windows",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",  "build": {
+  "main": "main.js",
+  "build": {
     "appId": "com.parrotias",
     "icon": "resources/icon.ico",
     "directories": {
@@ -40,6 +41,7 @@
   },
   "dependencies": {
     "electron-context-menu": "^3.6.1",
+    "electron-dl": "^3.5.0",
     "electron-squirrel-startup": "^1.0.0",
     "path": "^0.12.7",
     "update-electron-app": "^2.0.1"
