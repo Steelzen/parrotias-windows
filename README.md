@@ -6,7 +6,7 @@
 
 - Approached totally different way using webview
 - Solved cookies issue
-- Have done styling buttons
+- Having done styling buttons
 - Alternate status message to images
 - Ctr + p print function added
 
