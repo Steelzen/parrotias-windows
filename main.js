@@ -1,11 +1,10 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
+const { handleMenu } = require("./scripts/menu.js");
 const {
-  setContextMenu,
-  disableMenuBarVisbility,
-  createMenu,
-} = require("./scripts/menu.js");
-const { handleElectronAPI } = require("./scripts/electron-api.js");
+  rendererToMainAPI,
+  mainToRendererAPI,
+} = require("./scripts/electron-api.js");
 // require('update-electron-app')()
 
 const createWindow = () => {
@@ -13,26 +12,33 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
+      nodeIntegration: true,
       preload: path.join(__dirname, "preload.js"),
     },
   });
 
-  handleElectronAPI();
+  const interfaceWindow = new BrowserWindow({
+    width: 800,
+    height: 100,
+    webPreferences: {
+      nodeIntegration: true,
+      preload: path.join(__dirname, "preload.js"),
+    },
+  });
 
-  setContextMenu();
-  disableMenuBarVisbility(mainWindow);
-  createMenu();
+  mainWindow.loadURL("https://parrotias.com");
+  interfaceWindow.loadFile("index.html");
 
-  mainWindow.loadFile("index.html");
+  rendererToMainAPI(mainWindow);
+  handleMenu(mainWindow);
 
   // for sending a message to renderer process
-  mainWindow.webContents.on("did-start-loading", () => {
-    mainWindow.webContents.send("did-start-loading");
-  });
+  mainToRendererAPI(mainWindow.webContents, interfaceWindow.webContents);
 
-  mainWindow.webContents.on("did-stop-loading", () => {
-    mainWindow.webContents.send("did-stop-loading");
-  });
+  // mainWindow.webContents.on("did-finish-load", () => {
+  //   // Trigger the print action
+  //   mainWindow.webContents.print();
+  // });
 };
 
 app

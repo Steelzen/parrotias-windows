@@ -1,6 +1,11 @@
-const {Menu} = require("electron");
+const { Menu, MenuItem } = require("electron");
 const contextMenu = require('electron-context-menu'); 
 
+const handleMenu = (mainWindow) => {
+    setContextMenu();
+    disableMenuBarVisbility(mainWindow);
+    createMenu(mainWindow);
+}
 
 const setContextMenu = () => {
     // Display SaveImageAs function when right click to any image item
@@ -13,8 +18,15 @@ const disableMenuBarVisbility = (mainWindow) =>{
     mainWindow.setMenuBarVisibility(false);
 }
   
-const createMenu = () =>{
+const createMenu = (mainWindow) =>{
     const isMac = process.platform === 'darwin'
+    const printMenuItem = new MenuItem({
+        label: 'Print',
+        accelerator: 'CmdOrCtrl+P',
+        click: () => {
+            mainWindow.webContents.print();
+        },
+    });
 
     const template = [
         // { role: 'editMenu' }
@@ -50,7 +62,7 @@ const createMenu = () =>{
         {
         label: 'View',
         submenu: [
-            { role: 'reload' },
+            { role: 'reload', accelerator: 'F5' },
             { role: 'forceReload' },
             { role: 'toggleDevTools' },
             { type: 'separator' },
@@ -67,6 +79,7 @@ const createMenu = () =>{
         submenu: [
             { role: 'minimize' },
             { role: 'zoom' },
+            printMenuItem,
             ...(isMac ? [
             { type: 'separator' },
             { role: 'front' },
@@ -84,7 +97,5 @@ const createMenu = () =>{
 }
 
 module.exports = {
-    setContextMenu,
-    disableMenuBarVisbility,
-    createMenu
+    handleMenu,
 }

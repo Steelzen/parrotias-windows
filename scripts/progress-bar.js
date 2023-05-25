@@ -1,5 +1,5 @@
 const progressBar = document.getElementById("progress");
-const iframe = document.getElementById("website-iframe");
+// const iframe = document.getElementById("website-iframe");
 
 window.electronAPI.handleStartLoading((event) => {
   progressBar.style.width = "10%";
