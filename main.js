@@ -9,14 +9,16 @@ const {
 
 const createWindow = async () => {
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1000,
+    height: 830,
     webPreferences: {
       nodeIntegration: true,
       preload: path.join(__dirname, "preload.js"),
       webviewTag: true,
     },
   });
+  
+  mainWindow.maximize();
 
   mainWindow.loadFile("index.html");
 
@@ -30,9 +32,19 @@ const createWindow = async () => {
 
   handleMenu(mainWindow, websiteView);
 
-  mainWindow.setBrowserView(websiteView);
   await websiteView.webContents.loadURL("https://parrotias.com");
-  websiteView.setBounds({ x: 0, y: 70, width: 800, height: 530 });
+  mainWindow.setBrowserView(websiteView);
+
+
+  const bounds = mainWindow.getBounds();
+    websiteView.setBounds({
+      x: bounds.x,
+      y: bounds.y + 40,
+      width: bounds.width,
+      height: bounds.height - 70,
+  });
+
+
   websiteView.setAutoResize({ width: true, height: true });
 
   // Electron API
@@ -42,7 +54,7 @@ const createWindow = async () => {
 
 app
   .whenReady()
-  .then(() => {
+  .then( () => {
     createWindow();
 
     app.on("activate", () => {
