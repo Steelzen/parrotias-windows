@@ -49,7 +49,6 @@ const createWindow = async () => {
 
   // Electron API
   rendererToMainAPI(websiteView);
-
   mainToRendererAPI(websiteView.webContents, mainWindow.webContents);
 };
 
