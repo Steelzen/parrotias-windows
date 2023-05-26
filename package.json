@@ -1,6 +1,6 @@
 {
-  "name": "parrotias",
-  "version": "0.2.0",
+  "name": "Parrotias",
+  "version": "0.3.1",
   "description": "",
   "main": "main.js",
   "build": {
@@ -25,7 +25,8 @@
       "scripts/**/*",
       "styles/**/*",
       "index.html",
-      "forge.config.js"
+      "forge.config.js",
+      "preload.js"
     ]
   },
   "scripts": {
