@@ -1,26 +1,29 @@
 const { Menu, MenuItem } = require("electron");
 const contextMenu = require("electron-context-menu");
 
-const handleMenu = (mainWindow) => {
-  setContextMenu(mainWindow);
+const handleMenu = (mainWindow, websiteView) => {
+  setContextMenu(mainWindow, websiteView);
   disableMenuBarVisbility(mainWindow);
-  createMenu(mainWindow);
+  createMenu(websiteView);
 };
 
-const setContextMenu = (mainWindow) => {
-  // Display SaveImageAs function when right click to any image item
+const setContextMenu = (mainWindow, websiteView) => {
+  // Display SaveImageAs function when right click on any image item
   contextMenu({
     showSaveImageAs: true,
     prepend: () => {
-      return [
+      const contextMenuItems = [
         {
           label: "Print",
           click: () => {
-            mainWindow.webContents.print();
+            websiteView.webContents.print();
           },
         },
       ];
+
+      return contextMenuItems;
     },
+    window: websiteView,
   });
 };
 
@@ -28,13 +31,13 @@ const disableMenuBarVisbility = (mainWindow) => {
   mainWindow.setMenuBarVisibility(false);
 };
 
-const createMenu = (mainWindow) => {
+const createMenu = (websiteView) => {
   const isMac = process.platform === "darwin";
   const printMenuItem = new MenuItem({
     label: "Print",
     accelerator: "CmdOrCtrl+P",
     click: () => {
-      mainWindow.webContents.print();
+      websiteView.webContents.print();
     },
   });
 
