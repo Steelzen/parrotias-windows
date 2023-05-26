@@ -1,42 +1,29 @@
-const { app, Menu, MenuItem, shell, session } = require("electron");
+const { Menu, MenuItem } = require("electron");
+const contextMenu = require("electron-context-menu");
 
-const handleMenu = (mainWindow) => {
-  setContextMenu();
+const handleMenu = (mainWindow, websiteView) => {
+  setContextMenu(mainWindow, websiteView);
   disableMenuBarVisbility(mainWindow);
-  createMenu(mainWindow);
+  createMenu(websiteView);
 };
 
-const setContextMenu = () => {
-  app.on("web-contents-created", (event, webContents) => {
-    webContents.on(
-      "context-menu",
-      async (event, params) => {
-        event.preventDefault();
+const setContextMenu = (mainWindow, websiteView) => {
+  // Display SaveImageAs function when right click on any image item
+  contextMenu({
+    showSaveImageAs: true,
+    prepend: () => {
+      const contextMenuItems = [
+        {
+          label: "Print",
+          click: () => {
+            websiteView.webContents.print();
+          },
+        },
+      ];
 
-        const menu = new Menu();
-
-        menu.append(
-          new MenuItem({
-            label: "Save Image As",
-            click: async () => {
-              try {
-                const { filePath } = await session.defaultSession.downloadURL(
-                  params.srcURL
-                );
-                if (filePath) {
-                  shell.showItemInFolder(filePath);
-                }
-              } catch (error) {
-                console.error("Error downloading file:", error);
-              }
-            },
-          })
-        );
-
-        menu.popup();
-      },
-      false
-    );
+      return contextMenuItems;
+    },
+    window: websiteView,
   });
 };
 
@@ -44,13 +31,13 @@ const disableMenuBarVisbility = (mainWindow) => {
   mainWindow.setMenuBarVisibility(false);
 };
 
-const createMenu = (mainWindow) => {
+const createMenu = (websiteView) => {
   const isMac = process.platform === "darwin";
   const printMenuItem = new MenuItem({
     label: "Print",
     accelerator: "CmdOrCtrl+P",
     click: () => {
-      mainWindow.webContents.print();
+      websiteView.webContents.print();
     },
   });
 
