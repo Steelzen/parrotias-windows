@@ -18,6 +18,8 @@ const createWindow = async () => {
     },
   });
 
+  mainWindow.maximize();
+
   mainWindow.loadFile("index.html");
 
   const websiteView = new BrowserView({
@@ -30,9 +32,17 @@ const createWindow = async () => {
 
   handleMenu(mainWindow, websiteView);
 
-  mainWindow.setBrowserView(websiteView);
   await websiteView.webContents.loadURL("https://parrotias.com");
-  websiteView.setBounds({ x: 0, y: 70, width: 800, height: 530 });
+  mainWindow.setBrowserView(websiteView);
+
+  const bounds = mainWindow.getBounds();
+  websiteView.setBounds({
+    x: bounds.x,
+    y: bounds.y + 40,
+    width: bounds.width,
+    height: bounds.height - 70,
+  });
+
   websiteView.setAutoResize({ width: true, height: true });
 
   // Electron API
