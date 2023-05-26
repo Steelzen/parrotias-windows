@@ -1,16 +1,16 @@
 const { ipcMain, BrowserWindow, dialog } = require("electron");
 
-const rendererToMainAPI = (mainWindow) => {
+const rendererToMainAPI = (websiteView) => {
   ipcMain.on("go-back", () => {
-    handleGoBack(mainWindow);
+    handleGoBack(websiteView);
   });
 
   ipcMain.on("go-forward", () => {
-    handleGoForward(mainWindow);
+    handleGoForward(websiteView);
   });
 
   ipcMain.on("refresh", () => {
-    handleRefresh(mainWindow);
+    handleRefresh(websiteView);
   });
 };
 
@@ -26,20 +26,20 @@ const mainToRendererAPI = (mainWebContents, interfaceWebContents) => {
   });
 };
 
-const handleGoBack = (mainWindow) => {
-  if (mainWindow.webContents.canGoBack()) {
-    mainWindow.webContents.goBack();
+const handleGoBack = (websiteView) => {
+  if (websiteView.webContents.canGoBack()) {
+    websiteView.webContents.goBack();
   }
 };
 
-const handleGoForward = (mainWindow) => {
-  if (mainWindow.webContents.canGoForward()) {
-    mainWindow.webContents.goForward();
+const handleGoForward = (websiteView) => {
+  if (websiteView.webContents.canGoForward()) {
+    websiteView.webContents.goForward();
   }
 };
 
-const handleRefresh = (mainWindow) => {
-  mainWindow.webContents.reload();
+const handleRefresh = (websiteView) => {
+  websiteView.webContents.reload();
 };
 
 module.exports = {
