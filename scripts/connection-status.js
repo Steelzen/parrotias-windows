@@ -1,7 +1,10 @@
-const sendOffline = () => {
-    window.electronAPI.offline();
-}
+const updateOnlineStatus = () => {
+  document.getElementById("status").innerHTML = navigator.onLine
+    ? '<img src="./resources/online.png" alt="Online" />'
+    : '<img src="./resources/offline.png" alt="Offline" />';
+};
 
-window.electronAPI.handleStopLoadingOnce((event) => {
-    window.addEventListener('offline', sendOffline)
-})
+window.addEventListener("online", updateOnlineStatus);
+window.addEventListener("offline", updateOnlineStatus);
+
+updateOnlineStatus();

@@ -38,6 +38,7 @@ body {
   flex-direction: row;
   height: 23px;
   padding: 5px;
+  margin-top: 4px;
 }
 
 #status-wrapper {
@@ -54,12 +55,67 @@ body {
   margin: 0 5px;
 }
 
+/* Button stiyling */
+/* Styling for the button container */
+#buttons {
+  display: flex;
+  align-items: center;
+}
+
+/* Styling for the buttons */
+.toolbar-button {
+  background-color: transparent;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  outline: none;
+  font-size: 20px;
+  transition: transform 0.2s, opacity 0.2s;
+  position: relative;
+}
+
+/* Styling for the icons */
+.toolbar-button::before {
+  content: attr(data-icon);
+  font-family: Arial, sans-serif; /* Use the appropriate icon font */
+  font-size: inherit;
+  line-height: 1;
+}
+
+/* Styling for the hover effect */
+.toolbar-button:hover {
+  transform: scale(1.1);
+}
+
+.toolbar-button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.toolbar-button:hover::after {
+  opacity: 1;
+}
+
+#status img {
+  width: 20px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
 #website-wrapper {
   flex: 1;
   overflow: auto;
 }
 
-#website-iframe {
+#website-view {
   width: 100%;
   height: 100%;
   border: none;
