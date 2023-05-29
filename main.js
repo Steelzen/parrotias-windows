@@ -9,8 +9,7 @@ const {
 
 const createWindow = async () => {
   const mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 830,
+    show: false,
     webPreferences: {
       nodeIntegration: true,
       preload: path.join(__dirname, "preload.js"),
@@ -19,7 +18,8 @@ const createWindow = async () => {
   });
 
   mainWindow.maximize();
-
+  mainWindow.show();
+  
   mainWindow.loadFile("index.html");
 
   const websiteView = new BrowserView({
