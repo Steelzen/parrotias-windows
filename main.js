@@ -1,42 +1,53 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, BrowserView } = require("electron");
 const path = require("path");
+const { handleMenu } = require("./scripts/menu.js");
 const {
-  handleMenu
-} = require("./scripts/menu.js");
-const { rendererToMainAPI, mainToRendererAPI } = require("./scripts/electron-api.js");
+  rendererToMainAPI,
+  mainToRendererAPI,
+} = require("./scripts/electron-api.js");
 // require('update-electron-app')()
 
-const createWindow = () => {
+const createWindow = async () => {
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1000,
+    height: 830,
     webPreferences: {
       nodeIntegration: true,
+      preload: path.join(__dirname, "preload.js"),
+      webviewTag: true,
+    },
+  });
+
+  mainWindow.maximize();
+
+  mainWindow.loadFile("index.html");
+
+  const websiteView = new BrowserView({
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
       preload: path.join(__dirname, "preload.js"),
     },
   });
 
-  rendererToMainAPI();
-  handleMenu(mainWindow);
+  handleMenu(mainWindow, websiteView);
 
-  mainWindow.loadFile("index.html");
-  // mainWindow.loadURL("https://parrotias.com");
-  // mainWindow.webContents.on('did-finish-load', () => {
-  //   mainWindow.webContents.executeJavaScript(`
-  //     // Execute JavaScript code in the loaded web page
-  //     const newElement = document.createElement('div');
-  //     newElement.textContent = 'This is a new element added dynamically.';
-  //     document.body.appendChild(newElement);
-  //   `);
-  // });
+  await websiteView.webContents.loadURL("https://parrotias.com");
+  mainWindow.setBrowserView(websiteView);
 
-  // for sending a message to renderer process
-  mainToRendererAPI(mainWindow.webContents);
+  const bounds = mainWindow.getBounds();
+  websiteView.setBounds({
+    x: bounds.x,
+    y: bounds.y + 40,
+    width: bounds.width,
+    height: bounds.height - 70,
+  });
 
-  // mainWindow.webContents.on('did-finish-load', () => {
-  //   // Trigger the print action
-  //   mainWindow.webContents.print();
-  // });
+  websiteView.setAutoResize({ width: true, height: true });
+
+  // Electron API
+  rendererToMainAPI(websiteView);
+  mainToRendererAPI(websiteView.webContents, mainWindow.webContents);
 };
 
 app

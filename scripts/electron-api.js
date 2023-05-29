@@ -1,35 +1,45 @@
 const { ipcMain, BrowserWindow, dialog } = require("electron");
 
-const rendererToMainAPI = () => {
-  ipcMain.on("go-back", handleGoBack);
-  ipcMain.on("go-forward", handleGoForward);
-  ipcMain.on("refresh", handleRefresh);
-  ipcMain.on("offline", handleOffline);
+const rendererToMainAPI = (websiteView) => {
+  ipcMain.on("go-back", () => {
+    handleGoBack(websiteView);
+  });
+
+  ipcMain.on("go-forward", () => {
+    handleGoForward(websiteView);
+  });
+
+  ipcMain.on("refresh", () => {
+    handleRefresh(websiteView);
+  });
 };
 
-const mainToRendererAPI = (webContents) => {
-  webContents.on("did-start-loading", () => { webContents.send("did-start-loading") });
-  webContents.on("did-stop-loading", () => { webContents.send("did-stop-loading") });
-  webContents.on("did-finish-load", () => { webContents.send("did-finish-load") });
-}
+const mainToRendererAPI = (mainWebContents, interfaceWebContents) => {
+  mainWebContents.on("did-start-loading", () => {
+    interfaceWebContents.send("did-start-loading");
+  });
+  mainWebContents.on("did-stop-loading", () => {
+    interfaceWebContents.send("did-stop-loading");
+  });
+  mainWebContents.on("did-finish-load", () => {
+    interfaceWebContents.send("did-finish-load");
+  });
+};
 
-const handleGoBack = (event) => {
-  const webContents = event.sender;
-  if (webContents.canGoBack()) {
-    webContents.goBack();
+const handleGoBack = (websiteView) => {
+  if (websiteView.webContents.canGoBack()) {
+    websiteView.webContents.goBack();
   }
 };
 
-const handleGoForward = (event) => {
-  const webContents = event.sender;
-  if (webContents.canGoForward()) {
-    webContents.goForward();
+const handleGoForward = (websiteView) => {
+  if (websiteView.webContents.canGoForward()) {
+    websiteView.webContents.goForward();
   }
 };
 
-const handleRefresh = (event) => {
-  const webContents = event.sender;
-  webContents.reload();
+const handleRefresh = (websiteView) => {
+  websiteView.webContents.reload();
 };
 
 const handleOffline = (event) => {
