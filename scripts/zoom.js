@@ -9,17 +9,20 @@ const zoom = (websiteView) => {
     .then(console.log("Zoom Levels Have been Set between 100% and 500%"))
     .catch((err) => console.log(err));
 
-  win.webContents.on("zoom-changed", (event, zoomDirection) => {
-    console.log(zoomDirection);
-    var currentZoom = win.webContents.getZoomFactor();
+  try {
+    win.webContents.on("zoom-changed", (event, zoomDirection) => {
+      var currentZoom = win.webContents.getZoomFactor();
 
-    if (zoomDirection === "in") {
-      win.webContents.zoomFactor = currentZoom + 0.2;
-    }
-    if (zoomDirection === "out") {
-      win.webContents.zoomFactor = currentZoom - 0.2;
-    }
-  });
+      if (zoomDirection === "in") {
+        win.webContents.zoomFactor = currentZoom + 0.2;
+      }
+      if (zoomDirection === "out") {
+        win.webContents.zoomFactor = currentZoom - 0.2;
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 module.exports = {
