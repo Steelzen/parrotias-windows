@@ -12,26 +12,12 @@ const zoom = (websiteView) => {
   win.webContents.on("zoom-changed", (event, zoomDirection) => {
     console.log(zoomDirection);
     var currentZoom = win.webContents.getZoomFactor();
-    console.log("Current Zoom Factor - ", currentZoom);
-    console.log("Current Zoom Level at - ", win.webContents.zoomLevel);
 
     if (zoomDirection === "in") {
       win.webContents.zoomFactor = currentZoom + 0.2;
-
-      console.log(
-        "Zoom Factor Increased to - ",
-        win.webContents.zoomFactor * 100,
-        "%"
-      );
     }
     if (zoomDirection === "out") {
       win.webContents.zoomFactor = currentZoom - 0.2;
-
-      console.log(
-        "Zoom Factor Decreased to - ",
-        win.webContents.zoomFactor * 100,
-        "%"
-      );
     }
   });
 };
