@@ -1,6 +1,7 @@
 const { app, BrowserWindow, BrowserView } = require("electron");
 const path = require("path");
 const { handleMenu } = require("./scripts/menu.js");
+const { zoom } = require("./scripts/zoom.js");
 const {
   rendererToMainAPI,
   mainToRendererAPI,
@@ -38,8 +39,6 @@ const createWindow = async () => {
   mainWindow.maximize();
   mainWindow.show();
 
-  handleMenu(mainWindow, websiteView);
-
   const bounds = await mainWindow.getBounds();
   await websiteView.setBounds({
     x: bounds.x,
@@ -48,8 +47,11 @@ const createWindow = async () => {
     height: bounds.height - 70,
   });
 
+  zoom(websiteView);
+
   websiteView.setAutoResize({ width: true, height: true });
 
+  handleMenu(mainWindow, websiteView);
   // Electron API
   rendererToMainAPI(websiteView);
   mainToRendererAPI(websiteView.webContents, mainWindow.webContents);
