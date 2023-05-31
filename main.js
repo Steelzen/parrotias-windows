@@ -17,11 +17,6 @@ const createWindow = async () => {
     },
   });
 
-  mainWindow.maximize();
-  mainWindow.show();
-  
-  mainWindow.loadFile("index.html");
-
   const websiteView = new BrowserView({
     webPreferences: {
       nodeIntegration: false,
@@ -30,13 +25,23 @@ const createWindow = async () => {
     },
   });
 
+  mainWindow.setBrowserView(websiteView);
+  mainWindow.loadFile("index.html");
+
+  try {
+    // Makes it unable to size the app unless website is loaded
+    await websiteView.webContents.loadURL("https://parrotias.com");
+  } catch (error) {
+    console.log(error);
+  }
+
+  mainWindow.maximize();
+  mainWindow.show();
+
   handleMenu(mainWindow, websiteView);
 
-  await websiteView.webContents.loadURL("https://parrotias.com");
-  mainWindow.setBrowserView(websiteView);
-
-  const bounds = mainWindow.getBounds();
-  websiteView.setBounds({
+  const bounds = await mainWindow.getBounds();
+  await websiteView.setBounds({
     x: bounds.x,
     y: bounds.y + 40,
     width: bounds.width,
