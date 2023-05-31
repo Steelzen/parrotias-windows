@@ -1,20 +1,37 @@
 const zoom = (websiteView) => {
-  const mainWindow = websiteView.webContents.getOwnerBrowserWindow();
-  const viewContents = websiteView.webContents;
+  const win = websiteView;
 
-  const handleZoom = (event) => {
-    const isZoomIn = event.ctrlKey || event.metaKey || event.deltaY < 0;
-    if (isZoomIn) {
-      viewContents.zoomIn();
-    } else {
-      viewContents.zoomOut();
+  win.webContents.setZoomFactor(1.0);
+
+  // Upper Limit is working of 500 %
+  win.webContents
+    .setVisualZoomLevelLimits(1, 5)
+    .then(console.log("Zoom Levels Have been Set between 100% and 500%"))
+    .catch((err) => console.log(err));
+
+  win.webContents.on("zoom-changed", (event, zoomDirection) => {
+    console.log(zoomDirection);
+    var currentZoom = win.webContents.getZoomFactor();
+    console.log("Current Zoom Factor - ", currentZoom);
+    console.log("Current Zoom Level at - ", win.webContents.zoomLevel);
+
+    if (zoomDirection === "in") {
+      win.webContents.zoomFactor = currentZoom + 0.2;
+
+      console.log(
+        "Zoom Factor Increased to - ",
+        win.webContents.zoomFactor * 100,
+        "%"
+      );
     }
-  };
+    if (zoomDirection === "out") {
+      win.webContents.zoomFactor = currentZoom - 0.2;
 
-  mainWindow.webContents.on("mouse-wheel", handleZoom);
-  mainWindow.webContents.on("dblclick", (event) => {
-    if (event.ctrlKey || event.metaKey) {
-      viewContents.setZoomLevel(0);
+      console.log(
+        "Zoom Factor Decreased to - ",
+        win.webContents.zoomFactor * 100,
+        "%"
+      );
     }
   });
 };
