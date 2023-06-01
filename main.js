@@ -1,6 +1,7 @@
 const { app, BrowserWindow, BrowserView } = require("electron");
 const path = require("path");
 const { handleMenu } = require("./scripts/menu.js");
+const { zoom } = require("./scripts/zoom.js");
 const {
   rendererToMainAPI,
   mainToRendererAPI,
@@ -9,18 +10,13 @@ const {
 
 const createWindow = async () => {
   const mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 830,
+    show: false,
     webPreferences: {
       nodeIntegration: true,
       preload: path.join(__dirname, "preload.js"),
       webviewTag: true,
     },
   });
-
-  mainWindow.maximize();
-
-  mainWindow.loadFile("index.html");
 
   const websiteView = new BrowserView({
     webPreferences: {
@@ -30,21 +26,32 @@ const createWindow = async () => {
     },
   });
 
-  handleMenu(mainWindow, websiteView);
-
-  await websiteView.webContents.loadURL("https://parrotias.com");
   mainWindow.setBrowserView(websiteView);
+  mainWindow.loadFile("index.html");
 
-  const bounds = mainWindow.getBounds();
-  websiteView.setBounds({
+  try {
+    // Makes it unable to size the app unless website is loaded
+    await websiteView.webContents.loadURL("https://parrotias.com");
+  } catch (error) {
+    console.log(error);
+  }
+
+  mainWindow.maximize();
+  mainWindow.show();
+
+  const bounds = await mainWindow.getBounds();
+  await websiteView.setBounds({
     x: bounds.x,
     y: bounds.y + 40,
     width: bounds.width,
     height: bounds.height - 70,
   });
 
+  zoom(websiteView);
+
   websiteView.setAutoResize({ width: true, height: true });
 
+  handleMenu(mainWindow, websiteView);
   // Electron API
   rendererToMainAPI(websiteView);
   mainToRendererAPI(websiteView.webContents, mainWindow.webContents);

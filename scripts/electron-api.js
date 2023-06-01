@@ -42,6 +42,14 @@ const handleRefresh = (websiteView) => {
   websiteView.webContents.reload();
 };
 
+const handleOffline = (event) => {
+  const webContents = event.sender;
+  const mainWindow = BrowserWindow.fromWebContents(webContents);
+  dialog.showMessageBox(mainWindow, {
+    message: 'Your connection is Offline',
+  })
+}
+
 module.exports = {
   rendererToMainAPI,
   mainToRendererAPI,
