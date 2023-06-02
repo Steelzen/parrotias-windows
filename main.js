@@ -43,7 +43,7 @@ const createWindow = async () => {
   await websiteView.setBounds({
     x: bounds.x,
     y: bounds.y + 40,
-    width: bounds.width,
+    width: bounds.width - 8,
     height: bounds.height - 70,
   });
 
