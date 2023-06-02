@@ -39,6 +39,7 @@ body {
   height: 23px;
   padding: 5px;
   margin-top: 4px;
+  border-bottom: 2px solid #ccc;
 }
 
 #status-wrapper {
