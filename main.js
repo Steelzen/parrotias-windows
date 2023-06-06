@@ -42,14 +42,13 @@ const createWindow = async () => {
   const bounds = await mainWindow.getBounds();
   await websiteView.setBounds({
     x: bounds.x,
-    y: bounds.y + 40,
+    y: bounds.y + 51,
     width: bounds.width - 8,
-    height: bounds.height - 70,
+    height: bounds.height - 59,
   });
 
-  zoom(websiteView);
-
   websiteView.setAutoResize({ width: true, height: true });
+  zoom(websiteView);
 
   handleMenu(mainWindow, websiteView);
   // Electron API

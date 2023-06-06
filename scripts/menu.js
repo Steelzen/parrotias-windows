@@ -1,13 +1,13 @@
-const { Menu, MenuItem } = require("electron");
+const { Menu, MenuItem, dialog } = require("electron");
 const contextMenu = require("electron-context-menu");
 
 const handleMenu = (mainWindow, websiteView) => {
-  setContextMenu(mainWindow, websiteView);
-  disableMenuBarVisbility(mainWindow);
+  setContextMenu(websiteView);
+  // disableMenuBarVisbility(mainWindow);
   createMenu(websiteView);
 };
 
-const setContextMenu = (mainWindow, websiteView) => {
+const setContextMenu = (websiteView) => {
   // Display SaveImageAs function when right click on any image item
   contextMenu({
     showSaveImageAs: true,
@@ -98,6 +98,17 @@ const createMenu = (websiteView) => {
           : [{ role: "close" }]),
       ],
     },
+    {
+      label: "About",
+      click: () => {
+        dialog.showMessageBox({
+          title: 'About',
+          message: "Parrotias\nVersion: 0.5.0",
+          type: 'info',
+          buttons: ['Close'],
+        })
+      },
+    }
   ];
 
   const menu = Menu.buildFromTemplate(template);
