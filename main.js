@@ -21,7 +21,7 @@ const createWindow = async () => {
   const websiteView = new BrowserView({
     webPreferences: {
       nodeIntegration: false,
-      contextIsolation: true,
+      contextIsolation: false,
       preload: path.join(__dirname, "preload.js"),
     },
   });
@@ -42,9 +42,9 @@ const createWindow = async () => {
   const bounds = await mainWindow.getBounds();
   await websiteView.setBounds({
     x: bounds.x,
-    y: bounds.y + 40,
+    y: bounds.y + 47,
     width: bounds.width - 8,
-    height: bounds.height - 70,
+    height: bounds.height - 85,
   });
 
   zoom(websiteView);

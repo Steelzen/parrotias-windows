@@ -3,7 +3,6 @@ const contextMenu = require("electron-context-menu");
 
 const handleMenu = (mainWindow, websiteView) => {
   setContextMenu(mainWindow, websiteView);
-  disableMenuBarVisbility(mainWindow);
   createMenu(websiteView);
 };
 
