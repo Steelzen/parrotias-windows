@@ -12,7 +12,7 @@
     },
     "publish": null,
     "win": {
-      "target": "nsis"
+      "target": "zip"
     },
     "nsis": {
       "oneClick": false,

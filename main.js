@@ -44,7 +44,7 @@ const createWindow = async () => {
     x: bounds.x,
     y: bounds.y + 47,
     width: bounds.width - 8,
-    height: bounds.height - 85,
+    height: bounds.height - 100,
   });
 
   zoom(websiteView);
