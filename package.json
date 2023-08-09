@@ -1,6 +1,6 @@
 {
   "name": "Parrotias",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "description": "",
   "main": "main.js",
   "build": {
@@ -12,12 +12,13 @@
     },
     "publish": null,
     "win": {
-      "target": "zip"
+      "target": "msi",
+      "icon" :"resources/icon.ico"
     },
-    "nsis": {
+    "msi": {
       "oneClick": false,
       "perMachine": true,
-      "allowToChangeInstallationDirectory": true
+      "createDesktopShortcut": true
     },
     "files": [
       "main.js",
@@ -30,21 +31,12 @@
     ]
   },
   "scripts": {
-    "start": "electron-forge start",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish"
+    "start": "electron .",
+    "build": "electron-builder"
   },
   "author": "Taehyung Kwon",
   "license": "MIT",
   "devDependencies": {
-    "@electron-forge/cli": "^6.1.1",
-    "@electron-forge/maker-deb": "^6.1.1",
-    "@electron-forge/maker-rpm": "^6.1.1",
-    "@electron-forge/maker-squirrel": "^6.1.1",
-    "@electron-forge/maker-zip": "^6.1.1",
-    "@electron-forge/publisher-github": "^6.1.1",
     "electron": "^24.3.0",
     "electron-builder": "^23.6.0"
   },
