@@ -10,3 +10,6 @@ Browser like functionalities:
 - Loading bar.
 - Refresh buttons.
 - Backward and forward buttons.
+
+## Tech
+- Electron.js
